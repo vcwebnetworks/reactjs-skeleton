@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Redirect, RouteProps } from 'react-router-dom';
-import { RouteWrapper } from './Route';
+import RouteWrapper from './Route';
 
 export interface MyRouteProps extends RouteProps {
   logged?: boolean;

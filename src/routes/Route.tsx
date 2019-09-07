@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import DefaultLayout from '../views/_layouts/default';
 
-export function RouteWrapper({
+export default function RouteWrapper({
   component: Component,
   logged,
   ...rest
