@@ -1,5 +1,6 @@
 import { persistStore } from 'redux-persist';
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
+import thunkMiddleware from 'redux-thunk';
 
 import createStore from './createStore';
 import persistedReducer from './persistedReducer';
@@ -13,8 +14,7 @@ const sagaMonitor =
     : null;
 
 const sagaMiddleware: SagaMiddleware = createSagaMiddleware({ sagaMonitor });
-
-const middlewares: any = [sagaMiddleware];
+const middlewares: any = [sagaMiddleware, thunkMiddleware];
 
 const store = createStore(persistedReducer(rootReducer), middlewares);
 const persistor = persistStore(store);

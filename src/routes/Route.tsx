@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import DefaultLayout from '../views/_layouts/default';
+import DefaultLayout from '../pages/_layouts/default';
 
 export default function RouteWrapper({
   component: Component,
@@ -12,9 +12,7 @@ export default function RouteWrapper({
 }) {
   const authenticated = false;
 
-  if (!authenticated && logged) {
-    return <Redirect to="/" />;
-  }
+  if (!authenticated && logged) return <Redirect to="/" />;
 
   return (
     <Route

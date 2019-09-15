@@ -5,11 +5,12 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['airbnb', 'prettier/react'],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   plugins: [
     'react',
     'react-hooks',
     'prettier',
+    'jsx-a11y',
     '@typescript-eslint/eslint-plugin',
     'plugin:import/typescript',
   ],

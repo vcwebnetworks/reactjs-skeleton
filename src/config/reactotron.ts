@@ -3,7 +3,7 @@
 import Reactotron from 'reactotron-react-js';
 import { Reactotron as ReactotronInterface } from 'reactotron-core-client';
 import { reactotronRedux } from 'reactotron-redux';
-import reactotronSaga from 'reactotron-redux-saga';
+import sagaPlugin from 'reactotron-redux-saga';
 
 declare global {
   interface Console {
@@ -12,10 +12,10 @@ declare global {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  const tron = Reactotron.configure()
+  const tron = Reactotron.connect()
     .use(reactotronRedux())
-    .use(reactotronSaga({}))
-    .connect();
+    .use(sagaPlugin({}))
+    .configure();
 
   (tron as any).clear();
 

@@ -7,20 +7,16 @@ export interface MyRouteProps extends RouteProps {
 }
 
 const routes: MyRouteProps[] = [
-  {
-    path: '/',
-    exact: true,
-    component: () => <h1>ReactJS + Typescript</h1>
-  },
+  { path: '/', exact: true, component: () => <h1>ReactJS + Typescript</h1> },
   {
     path: '/authenticated',
     exact: true,
     component: () => <h1>Authenticated</h1>,
-    logged: true
-  }
+    logged: true,
+  },
 ];
 
-export default function() {
+export default function Routes() {
   return (
     <Switch>
       {routes.map((route, index) => (
