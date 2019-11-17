@@ -3,7 +3,7 @@ import { persistReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 export default function(reducers: Reducer) {
-  const config: PersistConfig = {
+  const config: PersistConfig<any> = {
     key: '__vcw__',
     storage,
     whitelist: ['auth', 'user'],
