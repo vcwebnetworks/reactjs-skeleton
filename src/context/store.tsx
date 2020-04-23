@@ -1,14 +1,14 @@
 import React, { createContext, useState } from 'react';
 
-interface StoreContext {
+interface StoreData {
   store: object;
   setStore: React.Dispatch<React.SetStateAction<object>>;
 }
 
-const StoreContext = createContext({} as StoreContext);
+const StoreContext = createContext<StoreData>({} as StoreData);
 
 const StoreProvider: React.FC = ({ children }) => {
-  const [store, setStore] = useState({});
+  const [store, setStore] = useState<object>({});
 
   return (
     <StoreContext.Provider value={{ store, setStore }}>
