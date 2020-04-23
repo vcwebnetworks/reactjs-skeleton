@@ -1,22 +1,16 @@
 import React from 'react';
 
-export interface IfProps {
+interface IfProps {
   children: React.ReactNode;
   condition: boolean;
-  component?: React.ComponentType;
 }
 
-const If: React.FC<IfProps> = ({
-  children,
-  condition,
-  component: Component = React.Fragment,
-  ...rest
-}) => {
-  if (!condition) {
-    return null;
+const If: React.FC<IfProps> = ({ children, condition }) => {
+  if (condition) {
+    return <>{children}</>;
   }
 
-  return <Component {...rest}>{children}</Component>;
+  return null;
 };
 
 export default If;
