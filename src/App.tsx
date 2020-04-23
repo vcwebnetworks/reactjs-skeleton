@@ -1,28 +1,19 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { ToastContainer } from 'react-toastify';
+import { BrowserRouter } from 'react-router-dom';
 
-import './config/reactotron';
-
+import ScrollReset from './components/ScrollReset';
+import { StoreProvider } from './context/store';
 import Routes from './routes';
-import history from './routes/history';
 
-import { store, persistor } from './store';
-
-import { GlobalStyle } from './styles';
-
-export default function App() {
+const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router history={history}>
-          <Routes />
-          <GlobalStyle />
-          <ToastContainer autoClose={5000} position="top-right" />
-        </Router>
-      </PersistGate>
-    </Provider>
+    <StoreProvider>
+      <BrowserRouter>
+        <Routes />
+        <ScrollReset />
+      </BrowserRouter>
+    </StoreProvider>
   );
-}
+};
+
+export default App;
