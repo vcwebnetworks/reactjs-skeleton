@@ -1,19 +1,21 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
+
+type StoreType = { [key: string]: any };
 
 interface StoreData {
-  store: object;
+  store: StoreType;
   setStore: React.Dispatch<React.SetStateAction<object>>;
 }
 
 const StoreContext = createContext<StoreData>({} as StoreData);
 
 const StoreProvider: React.FC = ({ children }) => {
-  const [store, setStore] = useState<object>({});
+  const [store, setStore] = useState<StoreType>({});
+
+  const value = useMemo(() => ({ store, setStore }), [store]);
 
   return (
-    <StoreContext.Provider value={{ store, setStore }}>
-      {children}
-    </StoreContext.Provider>
+    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
   );
 };
 

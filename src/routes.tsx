@@ -9,7 +9,7 @@ const Routes: React.FC = () => {
   return (
     <Switch>
       <Route exact path='/' component={MainPage} />
-      <Redirect from='*' to={{ pathname: '/', state: { from: location } }} />
+      <Redirect to={{ ...location, pathname: '/' }} />
     </Switch>
   );
 };

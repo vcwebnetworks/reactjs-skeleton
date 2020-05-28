@@ -8,4 +8,5 @@ interface ForProps {
 const For: React.FC<ForProps> = ({ rows, children }) => (
   <>{rows.map(children)}</>
 );
+
 export default For;
