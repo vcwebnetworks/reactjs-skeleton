@@ -33,8 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "eject": "react-scripts eject",
-    "precommit": "eslint 'src/** --fix'"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
