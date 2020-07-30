@@ -1,8 +1,8 @@
-export function calcCsssRem(value: number) {
+export function calcCsssRem(value: number): string {
   return `${parseFloat(`${value / 16}`)}rem`;
 }
 
-export function formatMoney(value: number) {
+export function formatMoney(value: number): string {
   const formatter = Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
@@ -13,11 +13,11 @@ export function formatMoney(value: number) {
   return formatter.format(value);
 }
 
-export function normalizeMoney(value: string) {
+export function normalizeMoney(value: string): number {
   return Number(value.replace(/[^0-9-]/g, '')) / 100;
 }
 
-export function bytesToSize(bytes: number, decimals = 2) {
+export function bytesToSize(bytes: number, decimals = 2): string {
   if (bytes === 0) {
     return '0 Bytes';
   }
@@ -31,7 +31,7 @@ export function bytesToSize(bytes: number, decimals = 2) {
   return `${parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
 }
 
-export function formatMask(value: string, mask: string) {
+export function formatMask(value: string, mask: string): string {
   let maskedValue = '';
   let maskedIndex = 0;
   // eslint-disable-next-line no-useless-escape
@@ -55,11 +55,11 @@ export function formatMask(value: string, mask: string) {
   return maskedValue;
 }
 
-export function formatCpf(value: string) {
+export function formatCpf(value: string): string {
   return formatMask(value, '###.###.###-##');
 }
 
-export function sleep(ms = 0) {
+export function sleep(ms = 0): Promise<unknown> {
   return new Promise(resolve => setTimeout(() => resolve, ms));
 }
 

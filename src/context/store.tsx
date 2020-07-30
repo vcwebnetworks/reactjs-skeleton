@@ -4,7 +4,7 @@ type StoreType = { [key: string]: any };
 
 interface StoreData {
   store: StoreType;
-  setStore: React.Dispatch<React.SetStateAction<object>>;
+  setStore: React.Dispatch<React.SetStateAction<StoreType>>;
 }
 
 const StoreContext = createContext<StoreData>({} as StoreData);
