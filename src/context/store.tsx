@@ -2,7 +2,7 @@ import React, { createContext, useState, useMemo } from 'react';
 
 type StoreType = { [key: string]: any };
 
-interface StoreData {
+export interface StoreData {
   store: StoreType;
   setStore: React.Dispatch<React.SetStateAction<StoreType>>;
 }

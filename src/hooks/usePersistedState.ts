@@ -8,9 +8,8 @@ function usePersistedState<T>(key: string, initialState: T): Response<T> {
 
     if (storageValue) {
       return JSON.parse(storageValue);
-    } else {
-      return initialState;
     }
+    return initialState;
   });
 
   useEffect(() => {

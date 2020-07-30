@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 
-export default function useChangeTitle(title: string) {
-  const prevTitle = useRef(document.title);
+export default function useChangeTitle(title: string): void {
+  const refTitle = useRef<string>(document.title);
 
   useEffect(() => {
     if (title && title.trim()) {
@@ -10,8 +10,10 @@ export default function useChangeTitle(title: string) {
   }, [title]);
 
   useEffect(() => {
+    const prevTitle = refTitle?.current;
+
     return () => {
-      document.title = prevTitle?.current;
+      document.title = prevTitle;
     };
   }, []);
 }
