@@ -3,11 +3,11 @@ import axios, { AxiosRequestConfig } from 'axios';
 const {
   REACT_APP_API_ENDPOINT,
   REACT_APP_API_BASE_TOKEN,
-  REACT_APP_API_METHOD_OVERRIDE
+  REACT_APP_API_METHOD_OVERRIDE,
 } = process.env;
 
 const api = axios.create({
-  baseURL: REACT_APP_API_ENDPOINT
+  baseURL: REACT_APP_API_ENDPOINT,
 });
 
 function onRequestConfig(config: AxiosRequestConfig) {
@@ -51,7 +51,7 @@ function onRejected(error: any, logout: () => void) {
 api.registerInterceptorWithLogout = (logout: () => void): void => {
   api.interceptors.response.use(
     response => response,
-    error => onRejected(error, logout)
+    error => onRejected(error, logout),
   );
 };
 

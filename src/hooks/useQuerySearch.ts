@@ -2,7 +2,7 @@ type TypeResponse = undefined | string | Record<string, any>;
 
 export function useQuerySearch<T extends string>(
   name?: string,
-  defaultValue?: T
+  defaultValue?: T,
 ): T | TypeResponse {
   const urlSearchParams = new URLSearchParams(window.location.search);
 

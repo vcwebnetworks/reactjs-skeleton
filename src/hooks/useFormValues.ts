@@ -9,7 +9,7 @@ export interface IUseFormValuesResponse<T> {
   setLoadingFormValues: React.Dispatch<React.SetStateAction<boolean>>;
   handleChangeFormValues: (event: any) => void;
   handleSubmitFormValues: (
-    callback: SubmitCallback<T>
+    callback: SubmitCallback<T>,
   ) => (event: React.FormEvent<HTMLFormElement>) => void;
   handleClearFormValues: (allowed?: string[]) => void;
 }
@@ -51,7 +51,7 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
 
       setFormValues(newState);
     },
-    [formValues, initialState]
+    [formValues, initialState],
   );
 
   const handleSubmitFormValues = useCallback(
@@ -67,7 +67,7 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [formValues]
+    [formValues],
   );
 
   return useMemo(
@@ -78,14 +78,14 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
       setLoadingFormValues,
       handleChangeFormValues,
       handleSubmitFormValues,
-      handleClearFormValues
+      handleClearFormValues,
     }),
     [
       formValues,
       loadingFormValues,
       handleClearFormValues,
       handleChangeFormValues,
-      handleSubmitFormValues
-    ]
+      handleSubmitFormValues,
+    ],
   );
 }

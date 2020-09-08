@@ -7,7 +7,7 @@ export function formattedMoney(value: number | string, options?: Intl.NumberForm
     style: 'currency',
     currency: 'BRL',
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
   } as Intl.NumberFormatOptions;
 
   const formatter = Intl.NumberFormat('pt-BR', { ...defaultOptions, ...(options ?? {}) });
@@ -21,7 +21,7 @@ export function normalizeMoney(value: string): number {
 
 export function formattedDate(
   date: number | Date | string | undefined,
-  options?: Intl.DateTimeFormatOptions
+  options?: Intl.DateTimeFormatOptions,
 ): string {
   const defaultOptions = {
     year: 'numeric',
@@ -29,7 +29,7 @@ export function formattedDate(
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    timeZone: 'America/Sao_Paulo'
+    timeZone: 'America/Sao_Paulo',
   } as Intl.DateTimeFormatOptions;
 
   const formatter = Intl.DateTimeFormat('pr-BR', { ...defaultOptions, ...(options ?? {}) });
