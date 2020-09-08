@@ -14,9 +14,7 @@ const StoreProvider: React.FC = ({ children }) => {
 
   const value = useMemo(() => ({ store, setStore }), [store]);
 
-  return (
-    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };
 
 export { StoreProvider, StoreContext };

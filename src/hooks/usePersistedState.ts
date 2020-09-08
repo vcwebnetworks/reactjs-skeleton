@@ -2,7 +2,7 @@ import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
 type Response<T> = [T, Dispatch<SetStateAction<T>>];
 
-function usePersistedState<T>(key: string, initialState: T): Response<T> {
+export function usePersistedState<T>(key: string, initialState: T): Response<T> {
   const [state, setState] = useState(() => {
     const storageValue = localStorage.getItem(key);
 
@@ -18,5 +18,3 @@ function usePersistedState<T>(key: string, initialState: T): Response<T> {
 
   return [state, setState];
 }
-
-export default usePersistedState;

@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-export default function useChangeTitle(title: string): void {
+export function useDocumentTitle(title?: string): void {
   const refTitle = useRef<string>(document.title);
 
   useEffect(() => {

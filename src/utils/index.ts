@@ -2,19 +2,43 @@ export function calcCsssRem(value: number): string {
   return `${parseFloat(`${value / 16}`)}rem`;
 }
 
-export function formatMoney(value: number): string {
-  const formatter = Intl.NumberFormat('pt-BR', {
+export function formattedMoney(value: number | string, options?: Intl.NumberFormatOptions): string {
+  const defaultOptions = {
     style: 'currency',
     currency: 'BRL',
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+    maximumFractionDigits: 2
+  } as Intl.NumberFormatOptions;
 
-  return formatter.format(value);
+  const formatter = Intl.NumberFormat('pt-BR', { ...defaultOptions, ...(options ?? {}) });
+
+  return formatter.format(value as number);
 }
 
 export function normalizeMoney(value: string): number {
   return Number(value.replace(/[^0-9-]/g, '')) / 100;
+}
+
+export function formattedDate(
+  date: number | Date | string | undefined,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  const defaultOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'America/Sao_Paulo'
+  } as Intl.DateTimeFormatOptions;
+
+  const formatter = Intl.DateTimeFormat('pr-BR', { ...defaultOptions, ...(options ?? {}) });
+
+  if (typeof date === 'string') {
+    date = new Date(date);
+  }
+
+  return formatter.format(date);
 }
 
 export function bytesToSize(bytes: number, decimals = 2): string {
@@ -61,6 +85,22 @@ export function formatCpf(value: string): string {
 
 export function sleep(ms = 0): Promise<unknown> {
   return new Promise(resolve => setTimeout(() => resolve, ms));
+}
+
+type ClipboardCallback = (text: string) => void;
+
+export function clipboard(text: string, callback?: ClipboardCallback): void {
+  const textArea = document.createElement('textarea');
+
+  textArea.innerText = text;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  textArea.remove();
+
+  if (typeof callback === 'function') {
+    callback(text);
+  }
 }
 
 // export function dateFormat(date, format = 'brtime') {

@@ -11,7 +11,8 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:import/typescript"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -26,15 +27,9 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "import",
-    "import-helpers",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "import", "import-helpers", "@typescript-eslint", "prettier"],
   "rules": {
+    "no-param-reassign": "off",
     "prettier/prettier": "error",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
@@ -49,12 +44,7 @@
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": [
-          "/^react/",
-          "module",
-          "/^@/",
-          ["parent", "sibling", "index"]
-        ],
+        "groups": ["/^react/", "module", "/^~/", ["parent", "sibling", "index"]],
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],
@@ -68,11 +58,27 @@
         "tsx": "never",
         "jsx": "never"
       }
-    ]
+    ],
+    "no-use-before-define": "off"
   },
   "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
     "import/resolver": {
-      "typescript": {}
+      "typescript": {
+        "project": "."
+      },
+      "node": {
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      },
+      "babel-plugin-root-import": {
+        "paths": [
+          {
+            "rootPathSuffix": "src"
+          }
+        ]
+      }
     }
   }
 }

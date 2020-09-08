@@ -8,7 +8,7 @@ const Routes: React.FC = () => {
 
   return (
     <Switch>
-      <Route exact path='/' component={MainPage} />
+      <Route exact path="/" component={MainPage} />
       <Redirect to={{ ...location, pathname: '/' }} />
     </Switch>
   );

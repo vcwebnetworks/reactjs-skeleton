@@ -7,7 +7,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 
 const Image: React.FC<ImageProps> = ({ fallback, ...props }) => (
   <img
-    alt=''
+    alt=""
     {...props}
     onError={event => {
       const element = event.currentTarget;
