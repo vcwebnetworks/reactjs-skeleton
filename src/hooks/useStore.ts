@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { StoreContext, StoreData } from '~/context/store';
+import { StoreContext, IStoreProvider } from '~/context/store';
 
-export function useStore(): StoreData {
+export function useStore(): IStoreProvider {
   return useContext(StoreContext);
 }
