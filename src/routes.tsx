@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router';
+import { Redirect, Route, Switch, useLocation } from 'react-router';
 
-import MainPage from '../pages/Main';
+import MainPage from './pages/Main';
 
 const Routes: React.FC = () => {
   const location = useLocation();

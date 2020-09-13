@@ -2,6 +2,7 @@ import React from 'react';
 
 interface ForProps {
   rows: any[];
+
   children(value: any, index: number, array: any[]): React.ReactNode;
 }
 

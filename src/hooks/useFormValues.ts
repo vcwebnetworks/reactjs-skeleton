@@ -66,7 +66,6 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
         setLoadingFormValues(false);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [formValues],
   );
 

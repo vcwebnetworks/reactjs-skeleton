@@ -1,10 +1,10 @@
 export default {
   colors: {
-    primary: '#34495e',
-    secondary: '#2c3e50',
+    primary: '#34495E',
+    secondary: '#2C3E50',
     success: '#20C05C',
     error: '#F44336',
-    background: '#fff',
+    background: '#FFFFFF',
   },
   fontSizes: {
     default: '1.4rem',
