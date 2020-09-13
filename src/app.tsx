@@ -1,18 +1,24 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
+import { ThemeProvider } from 'styled-components';
+
 import ScrollReset from './components/ScrollReset';
-import { StoreProvider } from './context/store';
+import { useAppTheme } from './hooks';
 import Routes from './routes';
+import GlobalStyles from './styles/global';
 
 const App: React.FC = () => {
+  const { theme } = useAppTheme();
+
   return (
-    <StoreProvider>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes />
+        <GlobalStyles />
         <ScrollReset />
       </BrowserRouter>
-    </StoreProvider>
+    </ThemeProvider>
   );
 };
 
