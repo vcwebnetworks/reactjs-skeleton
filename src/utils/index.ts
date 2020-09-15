@@ -1,4 +1,4 @@
-export function calcCsssRem(value: number): string {
+export function calcCssRem(value: number): string {
   return `${parseFloat(`${value / 16}`)}rem`;
 }
 
