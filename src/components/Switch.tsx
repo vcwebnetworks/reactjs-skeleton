@@ -17,7 +17,7 @@ interface SwitchType<T> extends React.FC<T> {
 
 const Switch: SwitchType<SwitchProps> = ({ test, children }) => {
   let result: React.ReactNode = null;
-  let otherwise = null;
+  let otherwise;
 
   React.Children.forEach<React.ReactElement<CaseProps>>(children, child => {
     if (child.props.value === undefined) {

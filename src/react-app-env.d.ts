@@ -1,5 +1,5 @@
 // eslint-disable-next-line spaced-comment
-/// <reference types="react-scripts" />
+/// <reference types="react-scripts" />z
 
 declare module '*.bmp' {
   const src: string;
@@ -32,10 +32,8 @@ declare module '*.webp' {
 }
 
 declare module '*.svg' {
-  export const ReactComponent: React.FunctionComponent<React.SVGProps<
-    SVGSVGElement
-  >>;
+  export const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
   const src: string;
-  export default src
+  export default src;
 }
