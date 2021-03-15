@@ -10,7 +10,6 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
     "plugin:import/typescript"
   ],
@@ -27,7 +26,14 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "import", "import-helpers", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "import",
+    "import-helpers",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "no-param-reassign": "off",
     "prettier/prettier": "error",
@@ -37,15 +43,33 @@
     "react/display-name": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".tsx", ".jsx"]
+      }
+    ],
     "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "import-helpers/order-imports": [
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": ["/^react/", "module", "/^~/", ["parent", "sibling", "index"]],
-        "alphabetize": { "order": "asc", "ignoreCase": true }
+        "groups": [
+          "/^react/",
+          "module",
+          "/^~/",
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
       }
     ],
     "@typescript-eslint/no-explicit-any": "off",

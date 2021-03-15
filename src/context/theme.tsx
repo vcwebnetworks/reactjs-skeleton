@@ -1,27 +1,30 @@
 import React, { createContext, useCallback, useState } from 'react';
 
-import * as themes from '~/styles/themes';
+import { DefaultTheme } from 'styled-components';
 
-export type ThemeState = 'light' | 'dark';
+import { ThemeMode } from '~/@types/styled';
+import theme from '~/styles/theme';
 
 export type AppThemeContextState = {
-  theme: typeof themes.light;
-  currentTheme: ThemeState;
+  theme: DefaultTheme;
+  currentTheme: ThemeMode;
   toggleTheme(): void;
 };
 
-const AppThemeContext = createContext<AppThemeContextState>({} as AppThemeContextState);
+const AppThemeContext = createContext<AppThemeContextState>(
+  {} as AppThemeContextState,
+);
 
 const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
-  const [currentTheme, setCurrentTheme] = useState<ThemeState>(() => {
-    const storedTheme = localStorage.getItem('theme') as ThemeState;
-    return storedTheme ? JSON.parse(storedTheme) : 'light';
+  const [currentTheme, setCurrentTheme] = useState<ThemeMode>(() => {
+    const storedTheme = localStorage.getItem('theme') as ThemeMode;
+    return storedTheme ?? 'light';
   });
 
   const toggleTheme = useCallback(() => {
     setCurrentTheme(prevTheme => {
       const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', JSON.stringify(newTheme));
+      localStorage.setItem('theme', newTheme);
 
       return newTheme;
     });
@@ -31,12 +34,20 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
     () => ({
       currentTheme,
       toggleTheme,
-      theme: themes[currentTheme],
+      theme: {
+        ...theme,
+        mode: currentTheme,
+        color: theme.colors[currentTheme],
+      },
     }),
     [currentTheme, toggleTheme],
   );
 
-  return <AppThemeContext.Provider value={value}>{children}</AppThemeContext.Provider>;
+  return (
+    <AppThemeContext.Provider value={value}>
+      {children}
+    </AppThemeContext.Provider>
+  );
 };
 
 export { AppThemeContext, AppThemeProvider };

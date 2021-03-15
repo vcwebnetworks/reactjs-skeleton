@@ -1,6 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-type SubmitCallback<T> = (event: React.FormEvent<HTMLFormElement>, values: T) => Promise<void>;
+type SubmitCallback<T> = (
+  event: React.FormEvent<HTMLFormElement>,
+  values: T,
+) => Promise<void>;
 
 export interface IUseFormValuesResponse<T> {
   formValues: T;
@@ -55,7 +58,9 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
   );
 
   const handleSubmitFormValues = useCallback(
-    (callback: SubmitCallback<T>) => async (event: React.FormEvent<HTMLFormElement>) => {
+    (callback: SubmitCallback<T>) => async (
+      event: React.FormEvent<HTMLFormElement>,
+    ) => {
       event.preventDefault();
       event.persist();
 

@@ -2,7 +2,10 @@ export function calcCssRem(value: number): string {
   return `${parseFloat(`${value / 16}`)}rem`;
 }
 
-export function formattedMoney(value: number | string, options?: Intl.NumberFormatOptions): string {
+export const formattedMoney = (
+  value: number | string,
+  options?: Intl.NumberFormatOptions,
+): string => {
   const defaultOptions = {
     style: 'currency',
     currency: 'BRL',
@@ -10,19 +13,21 @@ export function formattedMoney(value: number | string, options?: Intl.NumberForm
     maximumFractionDigits: 2,
   } as Intl.NumberFormatOptions;
 
-  const formatter = Intl.NumberFormat('pt-BR', { ...defaultOptions, ...(options ?? {}) });
+  const formatter = Intl.NumberFormat('pt-BR', {
+    ...defaultOptions,
+    ...(options ?? {}),
+  });
 
   return formatter.format(value as number);
-}
+};
 
-export function normalizeMoney(value: string): number {
-  return Number(value.replace(/[^0-9-]/g, '')) / 100;
-}
+export const normalizeMoney = (value: string): number =>
+  Number(value.replace(/[^0-9-]/g, '')) / 100;
 
-export function formattedDate(
+export const formattedDate = (
   date: number | Date | string | undefined,
   options?: Intl.DateTimeFormatOptions,
-): string {
+): string => {
   const defaultOptions = {
     year: 'numeric',
     month: 'numeric',
@@ -32,16 +37,19 @@ export function formattedDate(
     timeZone: 'America/Sao_Paulo',
   } as Intl.DateTimeFormatOptions;
 
-  const formatter = Intl.DateTimeFormat('pr-BR', { ...defaultOptions, ...(options ?? {}) });
+  const formatter = Intl.DateTimeFormat('pr-BR', {
+    ...defaultOptions,
+    ...(options ?? {}),
+  });
 
   if (typeof date === 'string') {
     date = new Date(date);
   }
 
   return formatter.format(date);
-}
+};
 
-export function bytesToSize(bytes: number, decimals = 2): string {
+export const bytesToSize = (bytes: number, decimals = 2): string => {
   if (bytes === 0) {
     return '0 Bytes';
   }
@@ -53,11 +61,30 @@ export function bytesToSize(bytes: number, decimals = 2): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
   return `${parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
-}
+};
 
-export function formatMask(value: string, mask: string): string {
+export const parseJSON = (json: string | null) => {
+  if (typeof json !== 'string') {
+    json = JSON.stringify(json);
+  }
+
+  try {
+    json = JSON.parse(json);
+  } catch (e) {
+    return false;
+  }
+
+  if (typeof json === 'object' && json !== null) {
+    return json;
+  }
+
+  return false;
+};
+
+export const formatMask = (value: string, mask: string): string => {
   let maskedValue = '';
   let maskedIndex = 0;
+
   // eslint-disable-next-line no-useless-escape
   const unmasked = value.replace(/[\-\|\(\)\/\.\: ]/gm, '');
   const valueLength = unmasked.length;
@@ -77,19 +104,17 @@ export function formatMask(value: string, mask: string): string {
   }
 
   return maskedValue;
-}
+};
 
-export function formatCpf(value: string): string {
-  return formatMask(value, '###.###.###-##');
-}
+export const formatCpf = (value: string): string =>
+  formatMask(value, '###.###.###-##');
 
-export function sleep(ms = 0): Promise<unknown> {
-  return new Promise(resolve => setTimeout(() => resolve, ms));
-}
+export const sleep = (ms = 0): Promise<unknown> =>
+  new Promise(resolve => setTimeout(() => resolve, ms));
 
 type ClipboardCallback = (text: string) => void;
 
-export function clipboard(text: string, callback?: ClipboardCallback): void {
+export const clipboard = (text: string, callback?: ClipboardCallback): void => {
   const textArea = document.createElement('textarea');
 
   textArea.innerText = text;
@@ -101,7 +126,7 @@ export function clipboard(text: string, callback?: ClipboardCallback): void {
   if (typeof callback === 'function') {
     callback(text);
   }
-}
+};
 
 // export function dateFormat(date, format = 'brtime') {
 //   if (!date) {
