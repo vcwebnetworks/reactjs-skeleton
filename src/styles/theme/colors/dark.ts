@@ -1,6 +1,9 @@
+import colorLight from '~/styles/theme/colors/light';
+
 const colorDark = {
-  primary: '#000000',
-  secondary: '#000000',
+  ...colorLight,
+  text: '#FAFAFA',
+  background: '#212121',
 };
 
 export default colorDark;

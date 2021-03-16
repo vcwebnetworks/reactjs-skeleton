@@ -20,6 +20,8 @@ export default createGlobalStyle`
   body {
     height: auto;
     vertical-align: baseline;
+    background: ${({ theme }) => theme.color.background};
+    color: ${({ theme }) => theme.color.text};
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale;

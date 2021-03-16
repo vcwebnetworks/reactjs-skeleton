@@ -1,8 +1,9 @@
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme, ThemeProvider } from 'styled-components';
 
 import { ThemeMode } from '~/@types/styled';
+import GlobalStyles from '~/styles/global';
 import theme from '~/styles/theme';
 
 export type AppThemeContextState = {
@@ -18,7 +19,22 @@ const AppThemeContext = createContext<AppThemeContextState>(
 const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>(() => {
     const storedTheme = localStorage.getItem('theme') as ThemeMode;
-    return storedTheme ?? 'light';
+
+    if (storedTheme) {
+      return storedTheme;
+    }
+
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      // eslint-disable-next-line no-console
+      console.log('using the operating system theme dark');
+
+      return 'dark';
+    }
+
+    return 'light';
   });
 
   const toggleTheme = useCallback(() => {
@@ -43,10 +59,42 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
     [currentTheme, toggleTheme],
   );
 
+  useEffect(() => {
+    if (!window.matchMedia) {
+      return;
+    }
+
+    const matchMediaThemeDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    );
+
+    const handleChangeThemeInSystem = (event: MediaQueryListEvent) => {
+      setCurrentTheme(event.matches ? 'dark' : 'light');
+    };
+
+    matchMediaThemeDark.addEventListener('change', handleChangeThemeInSystem);
+
+    return () => {
+      matchMediaThemeDark?.removeEventListener(
+        'change',
+        handleChangeThemeInSystem,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.dataset.theme = currentTheme;
+    localStorage.setItem('theme', currentTheme);
+  }, [currentTheme]);
+
   return (
-    <AppThemeContext.Provider value={value}>
-      {children}
-    </AppThemeContext.Provider>
+    <ThemeProvider theme={value.theme}>
+      <AppThemeContext.Provider value={value}>
+        {children}
+      </AppThemeContext.Provider>
+
+      <GlobalStyles />
+    </ThemeProvider>
   );
 };
 
