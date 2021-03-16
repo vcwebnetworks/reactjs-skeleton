@@ -39,23 +39,25 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
       value = event?.target?.checked ?? false;
     }
 
-    setFormValues(oldValues => ({ ...oldValues, [name]: value }));
+    setFormValues(oldValues => ({
+      ...oldValues,
+      [name]: value,
+    }));
   }, []);
 
-  const handleClearFormValues = useCallback(
-    (allowed?: string[]) => {
-      const newState = { ...initialState };
+  const handleClearFormValues = useCallback((allowedValues?: string[]) => {
+    setFormValues(prevFormValues => {
+      const newFormValues = { ...prevFormValues };
 
-      if (Array.isArray(allowed)) {
-        allowed.forEach(allow => {
-          newState[allow] = formValues[allow];
+      if (Array.isArray(allowedValues)) {
+        allowedValues.forEach(value => {
+          newFormValues[value] = prevFormValues[value];
         });
       }
 
-      setFormValues(newState);
-    },
-    [formValues, initialState],
-  );
+      return newFormValues;
+    });
+  }, []);
 
   const handleSubmitFormValues = useCallback(
     (callback: SubmitCallback<T>) => async (
