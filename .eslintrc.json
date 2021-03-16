@@ -37,6 +37,7 @@
   "rules": {
     "no-param-reassign": "off",
     "prettier/prettier": "error",
+    "consistent-return": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
     "class-methods-use-this": "off",

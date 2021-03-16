@@ -1,11 +1,14 @@
 const { addBabelPlugin, addWebpackPlugin, override } = require('customize-cra');
-// const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-// const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
-const plugins = [
-  addBabelPlugin(['babel-plugin-root-import', { paths: [{ rootPathSuffix: 'src' }] }]),
-  // isDevelopment && addWebpackPlugin(new ReactRefreshWebpackPlugin()),
-];
-
-module.exports = override(...plugins);
+module.exports = override(
+  isDevelopment && addWebpackPlugin(new ReactRefreshWebpackPlugin()),
+  addBabelPlugin([
+    'babel-plugin-root-import',
+    {
+      rootPathSuffix: 'src',
+    },
+  ]),
+);
