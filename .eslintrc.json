@@ -40,6 +40,7 @@
     "consistent-return": "off",
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
     "class-methods-use-this": "off",
     "react/display-name": "off",
     "react-hooks/rules-of-hooks": "error",
