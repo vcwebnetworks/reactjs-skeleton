@@ -63,7 +63,9 @@ export const bytesToSize = (bytes: number, decimals = 2): string => {
   return `${parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
 };
 
-export const parseJSON = (json: string | null) => {
+export const parseJSON = (
+  json: string | null,
+): boolean | Record<string, never> => {
   if (typeof json !== 'string') {
     json = JSON.stringify(json);
   }
@@ -128,18 +130,41 @@ export const clipboard = (text: string, callback?: ClipboardCallback): void => {
   }
 };
 
-// export function dateFormat(date, format = 'brtime') {
-//   if (!date) {
-//     return null;
-//   }
+export const strLimit = (
+  value: string,
+  limit?: number,
+  endLine?: '...',
+): string => {
+  const strLength = value.replace(/\s/g, '').length;
 
-//   if (format.startsWith('us')) {
-//     return date.format(`YYYY-MM-DD${format === 'ustime' ? ' HH:mm:ss' : ''}`);
-//   }
+  if (limit && strLength > limit) {
+    return value.substring(0, limit) + endLine;
+  }
 
-//   if (format.startsWith('br')) {
-//     return date.format(`L${format === 'brtime' ? ' LT' : ''}`);
-//   }
+  return value;
+};
 
-//   return date.format(format);
-// }
+export function ucFirst(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+export const createUrlSearchParams = (
+  params: Record<string, any>,
+  mapperParams: Record<string, any> = {},
+): URLSearchParams => {
+  const urlSearchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value) {
+      let parseKey = key;
+
+      if (key in mapperParams) {
+        parseKey = mapperParams[key];
+      }
+
+      urlSearchParams.append(parseKey, `${value}`);
+    }
+  });
+
+  return urlSearchParams;
+};
