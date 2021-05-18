@@ -60,19 +60,18 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
   }, []);
 
   const handleSubmitFormValues = useCallback(
-    (callback: SubmitCallback<T>) => async (
-      event: React.FormEvent<HTMLFormElement>,
-    ) => {
-      event.preventDefault();
-      event.persist();
+    (callback: SubmitCallback<T>) =>
+      async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        event.persist();
 
-      try {
-        setLoadingFormValues(true);
-        await callback(event, formValues);
-      } finally {
-        setLoadingFormValues(false);
-      }
-    },
+        try {
+          setLoadingFormValues(true);
+          await callback(event, formValues);
+        } finally {
+          setLoadingFormValues(false);
+        }
+      },
     [formValues],
   );
 
