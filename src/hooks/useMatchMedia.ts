@@ -17,6 +17,10 @@ export const useMatchMedia = (
 
     const matchMedia = window.matchMedia(query);
 
+    if (!matchMedia.addEventListener) {
+      return;
+    }
+
     if (matchImmediate && matchMedia.matches) {
       setMatch(true);
     }
