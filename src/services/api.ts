@@ -11,10 +11,8 @@ const api = axios.create({
 });
 
 function onRequestConfig(config: AxiosRequestConfig) {
-  const token = localStorage.getItem('authToken') || REACT_APP_API_BASE_TOKEN;
-  const method = config.method?.toUpperCase();
-
   if (REACT_APP_API_METHOD_OVERRIDE === 'true') {
+    const method = config.method?.toUpperCase();
     config.headers['X-Http-Method-Override'] = method;
 
     if (['PUT', 'DELETE', 'PATCH'].includes(method as string)) {
@@ -22,12 +20,16 @@ function onRequestConfig(config: AxiosRequestConfig) {
     }
   }
 
-  config.headers.Authorization = `Bearer ${token}`;
+  const token = localStorage.getItem('authToken') || REACT_APP_API_BASE_TOKEN;
+
+  if (String(token).trim().length > 0) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
 
   return config;
 }
 
-function onRejected(error: any, logout: () => void) {
+function onRejected(error: any, fnLogout: () => void) {
   if (!error?.response) {
     // eslint-disable-next-line no-alert
     alert('Não foi possível comunicar com o servidor.');
@@ -40,7 +42,7 @@ function onRejected(error: any, logout: () => void) {
       alert(message);
 
       if (status === 401 && `${name}`.indexOf('UnauthorizedException') !== -1) {
-        logout();
+        fnLogout();
       }
     }
   }
@@ -48,10 +50,10 @@ function onRejected(error: any, logout: () => void) {
   return Promise.reject(error);
 }
 
-api.registerInterceptorWithLogout = (logout: () => void): void => {
+api.registerInterceptorWithLogout = (fnLogout: () => void): void => {
   api.interceptors.response.use(
     response => response,
-    error => onRejected(error, logout),
+    error => onRejected(error, fnLogout),
   );
 };
 
