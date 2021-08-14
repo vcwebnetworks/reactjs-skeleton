@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router';
 
-import MainPage from './pages/Main';
+const MainPage = lazy(() => import('~/pages/Main'));
 
 const Routes: React.FC = () => {
   const location = useLocation();
@@ -9,6 +9,7 @@ const Routes: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/" component={MainPage} />
+
       <Redirect to={{ ...location, pathname: '/' }} />
     </Switch>
   );

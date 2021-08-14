@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Router } from 'react-router-dom';
 
+import ScrollReset from '~/components/ScrollReset';
+import Routes from '~/routes';
 import history from '~/services/history';
 
-import ScrollReset from './components/ScrollReset';
-import Routes from './routes';
+import { AppThemeProvider, StoreProvider } from './context';
 
 const App: React.FC = () => {
   return (
     <Router history={history}>
-      <Routes />
-      <ScrollReset />
+      <AppThemeProvider>
+        <StoreProvider>
+          <Suspense fallback={<p>Carregando...</p>}>
+            <Routes />
+          </Suspense>
+
+          <ScrollReset />
+        </StoreProvider>
+      </AppThemeProvider>
     </Router>
   );
 };

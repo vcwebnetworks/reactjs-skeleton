@@ -3,6 +3,6 @@
 node_modules
 build
 public
-src/setupTests.ts
-src/react-app-env.d.ts
-src/reportWebVitals.ts
+**/setupTests.ts
+**/react-app-env.d.ts
+**/reportWebVitals.ts

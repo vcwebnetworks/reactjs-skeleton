@@ -5,26 +5,29 @@ type SubmitCallback<T> = (
   values: T,
 ) => Promise<void>;
 
-export interface IUseFormValuesResponse<T> {
-  formValues: T;
-  setFormValues: React.Dispatch<React.SetStateAction<T>>;
+export interface IUseFormValuesResponse<FormValues, ChangeEvent> {
+  formValues: FormValues;
+  setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
   loadingFormValues: boolean;
   setLoadingFormValues: React.Dispatch<React.SetStateAction<boolean>>;
-  handleChangeFormValues: (event: any) => void;
+  handleChangeFormValues: (event: React.ChangeEvent<ChangeEvent>) => void;
   handleSubmitFormValues: (
-    callback: SubmitCallback<T>,
+    callback: SubmitCallback<FormValues>,
   ) => (event: React.FormEvent<HTMLFormElement>) => void;
   handleClearFormValues: (allowed?: string[]) => void;
 }
 
-export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
-  const [formValues, setFormValues] = useState<T>({ ...initialState });
+export function useFormValues<
+  FormValues,
+  ChangeEvent = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+>(initialState: FormValues): IUseFormValuesResponse<FormValues, ChangeEvent> {
+  const [formValues, setFormValues] = useState<FormValues>({ ...initialState });
   const [loadingFormValues, setLoadingFormValues] = useState<boolean>(false);
 
   const handleChangeFormValues = useCallback(event => {
     let type = event?.target?.type ?? null;
     let value = event?.target?.value ?? '';
-    let name = event?.target?.name ?? null;
+    let name = event?.target?.name ?? '';
 
     if (event?.type === 'customSelect') {
       type = 'select';
@@ -60,7 +63,7 @@ export function useFormValues<T>(initialState: T): IUseFormValuesResponse<T> {
   }, []);
 
   const handleSubmitFormValues = useCallback(
-    (callback: SubmitCallback<T>) =>
+    (callback: SubmitCallback<FormValues>) =>
       async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         event.persist();
