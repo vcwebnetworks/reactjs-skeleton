@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 const ScrollReset: React.FC = () => {
   const location = useLocation();
@@ -11,4 +11,4 @@ const ScrollReset: React.FC = () => {
   return null;
 };
 
-export default ScrollReset;
+export default React.memo(ScrollReset);

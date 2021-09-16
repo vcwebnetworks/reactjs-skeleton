@@ -1,5 +1,7 @@
 import { createGlobalStyle, css } from 'styled-components';
 
+import 'react-toastify/dist/ReactToastify.min.css';
+
 export default createGlobalStyle`
   ${({ theme }) => css`
     * {
@@ -28,7 +30,7 @@ export default createGlobalStyle`
 
     html,
     body,
-    #app {
+    #root {
       width: 100%;
       height: 100%;
       position: relative;

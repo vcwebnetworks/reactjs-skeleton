@@ -1,17 +1,22 @@
-import React, { lazy } from 'react';
-import { Redirect, Route, Switch, useLocation } from 'react-router';
+import React, { Suspense } from 'react';
+import { Redirect, Switch, useLocation } from 'react-router-dom';
 
-const MainPage = lazy(() => import('~/pages/Main'));
+import Route from '~/components/route';
+import configApp from '~/config';
 
 const Routes: React.FC = () => {
   const location = useLocation();
 
   return (
-    <Switch>
-      <Route exact path="/" component={MainPage} />
+    <Suspense fallback={<p>loading route...</p>}>
+      <Switch>
+        {Object.values(configApp.routes).map(route => (
+          <Route {...route} exact key={route.path} auth={route.auth ?? true} />
+        ))}
 
-      <Redirect to={{ ...location, pathname: '/' }} />
-    </Switch>
+        <Redirect from="*" to={{ ...location, pathname: '/' }} />
+      </Switch>
+    </Suspense>
   );
 };
 

@@ -5,7 +5,7 @@ export function useDocumentTitle(title?: string): void {
 
   useEffect(() => {
     if (title && title.trim()) {
-      document.title = title;
+      document.title = `${title}`;
     }
   }, [title]);
 

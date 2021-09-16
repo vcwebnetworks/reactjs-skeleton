@@ -13,4 +13,4 @@ const If: React.FC<IfProps> = ({ children, condition }) => {
   return null;
 };
 
-export default If;
+export default React.memo(If);

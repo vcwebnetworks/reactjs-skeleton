@@ -1,5 +1,9 @@
-/* eslint-disable no-alert */
+import { toast } from 'react-toastify';
+
 import axios, { AxiosRequestConfig } from 'axios';
+
+import configApp from '~/config';
+import authStorageService from '~/services/storage';
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -21,7 +25,7 @@ function onRequestConfig(config: AxiosRequestConfig) {
     }
   }
 
-  const token = localStorage.getItem('authToken') || REACT_APP_API_BASE_TOKEN;
+  const token = authStorageService.getToken() || REACT_APP_API_BASE_TOKEN;
 
   if (token?.trim()) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -30,29 +34,23 @@ function onRequestConfig(config: AxiosRequestConfig) {
   return config;
 }
 
-function onRejected(error: any, fnLogout: () => void) {
+function onRejected(error: any) {
   if (!error?.response) {
-    alert('Desculpe, não foi possível comunicar com o servidor.');
+    toast.error('Desculpe, não foi possível comunicar com o servidor.');
   } else if (
     error.response.status === 401 &&
     ['token.invalid', 'token.expired'].includes(error.response.data.code)
   ) {
-    alert('Sua sessão foi expirada, favor faça login novamente.');
-    fnLogout();
+    toast.error('Sua sessão foi expirada, favor faça login novamente.');
+    window.dispatchEvent(new Event(configApp.events.logoff));
   } else if (error.response.data?.stack) {
-    alert(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 
   return Promise.reject(error);
 }
 
-api.registerInterceptorWithLogout = (fnLogout: () => void): void => {
-  api.interceptors.response.use(
-    response => response,
-    error => onRejected(error, fnLogout),
-  );
-};
-
+api.interceptors.response.use(response => response, onRejected);
 api.interceptors.request.use(onRequestConfig, Promise.reject);
 
 export default api;

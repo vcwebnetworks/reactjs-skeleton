@@ -33,4 +33,4 @@ const Switch: SwitchType<SwitchProps> = ({ test, children }) => {
 Switch.Case = ({ children }) => <>{children}</>;
 Switch.Default = ({ children }) => <>{children}</>;
 
-export default Switch;
+export default React.memo(Switch);

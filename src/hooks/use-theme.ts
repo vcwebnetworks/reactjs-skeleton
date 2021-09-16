@@ -2,6 +2,6 @@ import { useContext } from 'react';
 
 import { AppThemeContext, AppThemeContextState } from '~/context/theme';
 
-export function useAppTheme(): AppThemeContextState {
+export function useTheme(): AppThemeContextState {
   return useContext(AppThemeContext);
 }

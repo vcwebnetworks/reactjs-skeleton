@@ -9,12 +9,12 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const MainPage: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <Container>
-      <h1>MainPage</h1>
+      <h1>home page</h1>
     </Container>
   );
 };
 
-export default MainPage;
+export default Home;

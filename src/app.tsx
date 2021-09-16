@@ -1,24 +1,24 @@
-import React, { Suspense } from 'react';
-import { Router } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
-import ScrollReset from '~/components/ScrollReset';
+import { ScrollReset } from '~/components/utils';
+import { AppThemeProvider, StoreProvider } from '~/context';
 import Routes from '~/routes';
 import history from '~/services/history';
-
-import { AppThemeProvider, StoreProvider } from './context';
 
 const App: React.FC = () => {
   return (
     <Router history={history}>
-      <AppThemeProvider>
-        <StoreProvider>
-          <Suspense fallback={<p>Carregando...</p>}>
+      <StoreProvider>
+        <AppThemeProvider>
+          <BrowserRouter>
             <Routes />
-          </Suspense>
-
-          <ScrollReset />
-        </StoreProvider>
-      </AppThemeProvider>
+            <ScrollReset />
+            <ToastContainer position="top-right" />
+          </BrowserRouter>
+        </AppThemeProvider>
+      </StoreProvider>
     </Router>
   );
 };

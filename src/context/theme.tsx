@@ -46,7 +46,7 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
     });
   }, []);
 
-  const value = React.useMemo(
+  const memorizedValue = React.useMemo(
     () => ({
       currentTheme,
       toggleTheme,
@@ -88,8 +88,8 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
   }, [currentTheme]);
 
   return (
-    <ThemeProvider theme={value.theme}>
-      <AppThemeContext.Provider value={value}>
+    <ThemeProvider theme={memorizedValue.theme}>
+      <AppThemeContext.Provider value={memorizedValue}>
         {children}
       </AppThemeContext.Provider>
 

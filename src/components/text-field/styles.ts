@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div<{ $small?: boolean }>`
-  ${({ theme, $small }) => css`
+export const Wrapper = styled.div<{ $small?: boolean; $error?: boolean }>`
+  ${({ theme, $small, $error }) => css`
     input,
     textarea,
     select {
@@ -13,7 +13,7 @@ export const Wrapper = styled.div<{ $small?: boolean }>`
       background: #f6f6f6;
       border-radius: 0.5rem;
       padding: ${$small ? '1' : '1.2'}rem ${$small ? '1.2' : '1.4'}rem;
-      border: 0.2rem solid #f6f6f6;
+      border: 0.1rem solid ${$error ? theme.color.error : '#F6F6F6'};
       transition: ${theme.transition.default};
 
       &::placeholder {
@@ -28,9 +28,15 @@ export const Wrapper = styled.div<{ $small?: boolean }>`
     label {
       font-size: 1.4rem;
       font-weight: ${theme.font.weight.regular};
-      color: ${theme.color.primary};
+      color: ${theme.color[$error ? 'error' : 'primary']};
       margin-bottom: 0.5rem;
       display: block;
+    }
+
+    .error {
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+      color: ${theme.color.error};
     }
   `}
 `;

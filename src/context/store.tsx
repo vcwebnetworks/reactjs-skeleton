@@ -12,10 +12,12 @@ const StoreContext = createContext<IStoreProvider>({} as IStoreProvider);
 const StoreProvider: React.FC = ({ children }) => {
   const [store, setStore] = useState<StoreData>({});
 
-  const value = useMemo(() => ({ store, setStore }), [store]);
+  const memorizedValue = useMemo(() => ({ store, setStore }), [store]);
 
   return (
-    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+    <StoreContext.Provider value={memorizedValue}>
+      {children}
+    </StoreContext.Provider>
   );
 };
 

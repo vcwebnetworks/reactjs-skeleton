@@ -1,12 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, screen } from '@testing-library/react';
 
-import MainPage from './index';
+import Home from './index';
 
-test('test page main', () => {
-  render(<MainPage />);
+test('test page home', () => {
+  render(<Home />);
 
-  const text = screen.getByText('MainPage');
+  const text = screen.getByText('home');
 
   expect(text).toBeInTheDocument();
 });
