@@ -16,7 +16,7 @@ const TextFieldWithFormik: React.ForwardRefRenderFunction<
   const [field, meta] = useField(String(name));
 
   const errorMessage = useMemo(() => {
-    if (meta.touched) {
+    if (meta.touched && meta.error) {
       return meta.error;
     }
 
