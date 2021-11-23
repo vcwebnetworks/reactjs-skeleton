@@ -39,7 +39,9 @@ const Modal = ({
 
   const handleEscKey = useCallback(
     async event => {
-      if (event.keyCode === 27) {
+      const KEY_CODE_ESC_NUMBER = 27;
+
+      if (event.keyCode === KEY_CODE_ESC_NUMBER) {
         await onClose();
       }
     },

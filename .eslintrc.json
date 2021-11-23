@@ -59,6 +59,8 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-no-useless-fragment": "off",
     "react/jsx-filename-extension": [
       1,
       {
@@ -84,7 +86,7 @@
         "groups": [
           "/^react|^next/",
           "module",
-          "/^~/",
+          "/^@/",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": {
@@ -111,11 +113,8 @@
         "extensions": [".ts", ".tsx", ".js", ".jsx"]
       },
       "babel-plugin-root-import": {
-        "paths": [
-          {
-            "rootPathSuffix": "src"
-          }
-        ]
+        "rootPathPrefix": "@",
+        "rootPathSuffix": "src"
       }
     }
   }

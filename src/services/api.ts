@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 
-import configApp from '~/config';
-import authStorageService from '~/services/storage';
+import configApp from '@/config';
+import authStorageService from '@/services/storage';
 
 const {
   REACT_APP_API_ENDPOINT,
@@ -16,8 +16,12 @@ const api = axios.create({
 });
 
 function onRequestConfig(config: AxiosRequestConfig) {
+  if (!config.headers) {
+    config.headers = {} as AxiosRequestHeaders;
+  }
+
   if (REACT_APP_API_METHOD_OVERRIDE === 'true') {
-    const method = config.method?.toUpperCase();
+    const method = config.method?.toUpperCase() ?? 'GET';
     config.headers['X-Http-Method-Override'] = method;
 
     if (['PUT', 'DELETE', 'PATCH'].includes(method as string)) {
@@ -36,12 +40,12 @@ function onRequestConfig(config: AxiosRequestConfig) {
 
 function onRejected(error: any) {
   if (!error?.response) {
-    toast.error('Desculpe, não foi possível comunicar com o servidor.');
+    toast.error('Sorry, it was not possible to communicate with the server.');
   } else if (
     error.response.status === 401 &&
     ['token.invalid', 'token.expired'].includes(error.response.data.code)
   ) {
-    toast.error('Sua sessão foi expirada, favor faça login novamente.');
+    toast.error('Your session has expired, please log in again.');
     window.dispatchEvent(new Event(configApp.events.logoff));
   } else if (error.response.data?.stack) {
     toast.error(error.response.data.message);

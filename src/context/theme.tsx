@@ -2,9 +2,9 @@ import React, { createContext, useCallback, useEffect, useState } from 'react';
 
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
-import { ThemeMode } from '~/@types/styled';
-import GlobalStyles from '~/styles/global';
-import theme from '~/styles/theme';
+import { ThemeMode } from '@/@types/styled';
+import GlobalStyles from '@/styles/global';
+import theme from '@/styles/theme';
 
 export type AppThemeContextState = {
   theme: DefaultTheme;

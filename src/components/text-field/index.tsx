@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 
-import { maskValue, unmask } from '~/utils';
+import { maskValue, unmask } from '@/utils';
 
 import * as S from './styles';
 
@@ -16,7 +16,7 @@ export type TextFieldProps = JSX.IntrinsicElements['input'] & {
   mask?: string;
   label?: string;
   small?: boolean;
-  error?: string;
+  error?: string | null;
   replace?: {
     to: string | RegExp;
     from?: string;
@@ -107,9 +107,9 @@ const TextField: ForwardRefRenderFunction<
 
       <input
         ref={inputRef}
-        onChange={handleOnChange}
-        placeholder={parsePlaceholder}
         {...rest}
+        placeholder={parsePlaceholder}
+        onChange={handleOnChange}
         type={showPassword ? 'text' : rest.type}
       />
 

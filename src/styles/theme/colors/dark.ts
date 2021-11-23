@@ -1,4 +1,4 @@
-import colorLight from '~/styles/theme/colors/light';
+import colorLight from '@/styles/theme/colors/light';
 
 const colorDark = {
   ...colorLight,

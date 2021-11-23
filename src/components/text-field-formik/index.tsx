@@ -1,4 +1,4 @@
-import React, { Ref, useMemo } from 'react';
+import React, { Ref, useCallback, useMemo } from 'react';
 
 import { useField } from 'formik';
 
@@ -12,18 +12,52 @@ type Props = TextFieldProps & {
 const TextFieldWithFormik: React.ForwardRefRenderFunction<
   TextFieldExternalRef,
   Props
-> = ({ name, ...rest }, ref) => {
-  const [field, meta] = useField(String(name));
+> = ({ name, onChange, onBlur, ...rest }, ref) => {
+  const [field, meta] = useField(name);
 
   const errorMessage = useMemo(() => {
     if (meta.touched && meta.error) {
       return meta.error;
     }
 
-    return undefined;
+    return null;
   }, [meta.error, meta.touched]);
 
-  return <TextField {...rest} {...field} ref={ref} error={errorMessage} />;
+  const handleOnChange = useCallback(
+    async event => {
+      if (typeof onChange === 'function') {
+        await onChange(event);
+      }
+
+      return field.onChange(event);
+    },
+    [field, onChange],
+  );
+
+  const handleOnBlur = useCallback(
+    async event => {
+      if (typeof onBlur === 'function') {
+        await onBlur(event);
+      }
+
+      return field.onBlur(event);
+    },
+    [field, onBlur],
+  );
+
+  return (
+    <TextField
+      {...rest}
+      ref={ref}
+      error={errorMessage}
+      onChange={handleOnChange}
+      onBlur={handleOnBlur}
+      value={field.value}
+      name={field.name}
+      checked={field.checked}
+      multiple={field.multiple}
+    />
+  );
 };
 
 export default React.forwardRef(TextFieldWithFormik);

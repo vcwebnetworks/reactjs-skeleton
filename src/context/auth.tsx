@@ -6,11 +6,11 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import configApp from '~/config';
-import api from '~/services/api';
-import authStorageService from '~/services/storage';
+import configApp from '@/config';
+import api from '@/services/api';
+import authStorageService from '@/services/storage';
 
 export interface AuthContextProps {
   token: string | null;
@@ -23,7 +23,7 @@ export interface AuthContextProps {
 export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState<AuthContextProps['user']>(null);
   const [token, setToken] = useState(authStorageService.getToken());
@@ -32,8 +32,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     setUser(null);
     setToken(null);
 
-    history.replace('/login');
-  }, [history]);
+    navigate('/login');
+  }, [navigate]);
 
   const performsLogin = useCallback(
     async (payload: any) => {
@@ -45,12 +45,12 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         const redirect = window.localStorage.getItem('@login.redirect');
         window.localStorage.removeItem('@login.redirect');
-        history.push(redirect ? window.atob(redirect) : '/');
+        navigate(redirect ? window.atob(redirect) : '/');
       } catch {
         setToken(null);
       }
     },
-    [history],
+    [navigate],
   );
 
   const memorizedValue = useMemo<AuthContextProps>(

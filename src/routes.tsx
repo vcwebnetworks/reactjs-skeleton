@@ -1,23 +1,34 @@
-import React, { Suspense } from 'react';
-import { Redirect, Switch, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
 
-import Route from '~/components/route';
-import configApp from '~/config';
+import LoadPage from '@/components/load-page';
+import { ScrollReset } from '@/components/utils';
 
-const Routes: React.FC = () => {
-  const location = useLocation();
+const routes: RouteObject[] = [
+  {
+    path: '/',
+    index: true,
+    element: <LoadPage page="home" />,
+  },
+  {
+    path: '/protected',
+    element: <LoadPage page="protected-page" auth />,
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" />,
+  },
+];
+
+const AppRoutes: React.FC = () => {
+  const elementRoutes = useRoutes(routes);
 
   return (
-    <Suspense fallback={<p>loading route...</p>}>
-      <Switch>
-        {Object.values(configApp.routes).map(route => (
-          <Route {...route} exact key={route.path} auth={route.auth ?? true} />
-        ))}
-
-        <Redirect from="*" to={{ ...location, pathname: '/' }} />
-      </Switch>
-    </Suspense>
+    <>
+      {elementRoutes}
+      <ScrollReset />
+    </>
   );
 };
 
-export default Routes;
+export default AppRoutes;

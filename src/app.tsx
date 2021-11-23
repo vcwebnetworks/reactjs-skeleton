@@ -1,25 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { ScrollReset } from '~/components/utils';
-import { AppThemeProvider, StoreProvider } from '~/context';
-import Routes from '~/routes';
-import history from '~/services/history';
+import { AppThemeProvider, AuthProvider, StoreProvider } from '@/context';
+import Routes from '@/routes';
 
 const App: React.FC = () => {
   return (
-    <Router history={history}>
+    <BrowserRouter>
       <StoreProvider>
-        <AppThemeProvider>
-          <BrowserRouter>
+        <AuthProvider>
+          <AppThemeProvider>
             <Routes />
-            <ScrollReset />
-            <ToastContainer position="top-right" />
-          </BrowserRouter>
-        </AppThemeProvider>
+          </AppThemeProvider>
+        </AuthProvider>
       </StoreProvider>
-    </Router>
+
+      <ToastContainer position="top-right" />
+    </BrowserRouter>
   );
 };
 
