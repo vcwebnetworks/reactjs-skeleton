@@ -1,8 +1,7 @@
 **/*.js
-/*.js
 node_modules
 build
 public
-**/setupTests.ts
-**/react-app-env.d.ts
-**/reportWebVitals.ts
+setupTests.ts
+react-app-env.d.ts
+reportWebVitals.ts

@@ -86,7 +86,7 @@
         "groups": [
           "/^react|^next/",
           "module",
-          "/^@/",
+          "/^@//",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": {
