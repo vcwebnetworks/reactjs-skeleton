@@ -14,10 +14,7 @@ const LoadPage: React.FC<Props> = ({ page, auth = false, to }) => {
   const Page = typeof page === 'string' ? loadLazyPage(page) : page;
 
   const renderPage = useMemo(() => {
-    if (auth) {
-      return <PrivatePage page={Page} to={to} />;
-    }
-
+    if (auth) return <PrivatePage page={Page} to={to} />;
     return <Page />;
   }, [Page, auth, to]);
 

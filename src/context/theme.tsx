@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
@@ -16,24 +22,13 @@ const AppThemeContext = createContext<AppThemeContextState>(
   {} as AppThemeContextState,
 );
 
-const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
+const AppThemeProvider = ({ children }: PropsWithChildren) => {
   const [currentTheme, setCurrentTheme] = useState<ThemeMode>(() => {
     const storedTheme = localStorage.getItem('theme') as ThemeMode;
-
-    if (storedTheme) {
-      return storedTheme;
-    }
-
-    if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      // eslint-disable-next-line no-console
-      console.log('using the operating system theme dark');
-
+    if (storedTheme) return storedTheme;
+    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
-
     return 'light';
   });
 
@@ -41,7 +36,6 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
     setCurrentTheme(prevTheme => {
       const newTheme = prevTheme === 'light' ? 'dark' : 'light';
       localStorage.setItem('theme', newTheme);
-
       return newTheme;
     });
   }, []);
@@ -60,18 +54,12 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
   );
 
   useEffect(() => {
-    if (!window.matchMedia) {
-      return;
-    }
-
-    const matchMediaThemeDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    );
-
+    if (!window.matchMedia) return;
+    const query = '(prefers-color-scheme: dark)';
+    const matchMediaThemeDark = window.matchMedia(query);
     const handleChangeThemeInSystem = (event: MediaQueryListEvent) => {
       setCurrentTheme(event.matches ? 'dark' : 'light');
     };
-
     matchMediaThemeDark.addEventListener('change', handleChangeThemeInSystem);
 
     return () => {
@@ -92,7 +80,6 @@ const AppThemeProvider: React.FC = ({ children }): JSX.Element => {
       <AppThemeContext.Provider value={memorizedValue}>
         {children}
       </AppThemeContext.Provider>
-
       <GlobalStyles />
     </ThemeProvider>
   );

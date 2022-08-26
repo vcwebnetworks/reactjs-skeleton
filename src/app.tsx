@@ -15,7 +15,6 @@ const App: React.FC = () => {
           </AppThemeProvider>
         </AuthProvider>
       </StoreProvider>
-
       <ToastContainer position="top-right" />
     </BrowserRouter>
   );

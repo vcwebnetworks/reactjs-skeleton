@@ -1,5 +1,6 @@
-import React, {
+import {
   createContext,
+  PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
@@ -22,7 +23,7 @@ export interface AuthContextProps {
 
 export const AuthContext = createContext({} as AuthContextProps);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<AuthContextProps['user']>(null);

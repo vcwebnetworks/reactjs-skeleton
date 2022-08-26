@@ -9,9 +9,12 @@ export const Container = styled.div`
 `;
 
 export const TitleHidden = styled.h1`
-  font-size: 0;
-  text-indent: -999999px;
-  visibility: hidden;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
 `;
 
 type AspectRatioContentProps = {

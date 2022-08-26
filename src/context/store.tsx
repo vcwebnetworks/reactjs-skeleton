@@ -1,4 +1,9 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  PropsWithChildren,
+  useMemo,
+  useState,
+} from 'react';
 
 export type StoreData = { [key: string]: any };
 
@@ -9,7 +14,7 @@ export interface IStoreProvider {
 
 const StoreContext = createContext<IStoreProvider>({} as IStoreProvider);
 
-const StoreProvider: React.FC = ({ children }) => {
+const StoreProvider = ({ children }: PropsWithChildren) => {
   const [store, setStore] = useState<StoreData>({});
 
   const memorizedValue = useMemo(() => ({ store, setStore }), [store]);
